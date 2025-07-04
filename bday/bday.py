@@ -4,22 +4,23 @@ from PIL import Image
 import time
 import os
 
-# Streamlit page settings
 st.set_page_config(page_title="Pavani's Birthday Gift 🎁", layout="centered")
 
-# Title & Opening Message
+# Title
 st.markdown(
     "<h1 style='text-align: center; color: #ff69b4;'>🎉 Happy Birthday Pavani 🎉</h1>",
     unsafe_allow_html=True
 )
+
+# Intro Message
 st.markdown(
     "<h3 style='text-align: center;'>A Small Gift On Your Precious Day 💝</h3><br>", 
     unsafe_allow_html=True
 )
 
-# Function to autoplay audio
+# Background Music
 def autoplay_audio(file_path: str):
-    try:
+    if os.path.exists(file_path):
         with open(file_path, "rb") as f:
             data = f.read()
         b64 = base64.b64encode(data).decode()
@@ -29,11 +30,10 @@ def autoplay_audio(file_path: str):
         </audio>
         """
         st.markdown(md, unsafe_allow_html=True)
-    except FileNotFoundError:
-        st.error(f"🎵 Music file not found: {file_path}")
+    else:
+        st.warning(f"🎵 Music file not found: {file_path}")
 
-# Play birthday song
-autoplay_audio("bdaysong.mp3")  # Make sure bdaysong.mp3 is in the same folder
+autoplay_audio("bdaysong.mp3")
 
 # Image Slideshow
 image_paths = [
@@ -45,7 +45,6 @@ image_paths = [
     "IMG-20250324-WA0088.jpg"
 ]
 
-
 for path in image_paths:
     if os.path.exists(path):
         img = Image.open(path)
@@ -54,8 +53,8 @@ for path in image_paths:
     else:
         st.warning(f"⚠️ Image not found: {path}")
 
-# Final Closing Message
+# Final Message
 st.markdown(
-    "<h2 style='text-align: center;'>💖 Stay Happy Always Pavani 💖<br>Wishing You Love, Luck, and Light ✨</h2>",
+    "<h2 style='text-align: center;'>💖 Stay Happy Always Pavani 💖<br>Wishing You Love, Luck and Light ✨</h2>",
     unsafe_allow_html=True
 )
