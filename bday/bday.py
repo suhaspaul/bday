@@ -2,22 +2,22 @@ import streamlit as st
 import base64
 from PIL import Image
 import time
+import os
 
+# Streamlit page settings
 st.set_page_config(page_title="Pavani's Birthday Gift 🎁", layout="centered")
 
-# Title
+# Title & Opening Message
 st.markdown(
     "<h1 style='text-align: center; color: #ff69b4;'>🎉 Happy Birthday Pavani 🎉</h1>",
     unsafe_allow_html=True
 )
-
-# Intro Message
 st.markdown(
     "<h3 style='text-align: center;'>A Small Gift On Your Precious Day 💝</h3><br>", 
     unsafe_allow_html=True
 )
 
-# Background Music
+# Function to autoplay audio
 def autoplay_audio(file_path: str):
     try:
         with open(file_path, "rb") as f:
@@ -30,10 +30,12 @@ def autoplay_audio(file_path: str):
         """
         st.markdown(md, unsafe_allow_html=True)
     except FileNotFoundError:
-        st.error(f"Could not find the music file: {file_path}")
-  # Change file name if needed
+        st.error(f"🎵 Music file not found: {file_path}")
 
-# Slideshow of Images
+# Play birthday song
+autoplay_audio("bdaysong.mp3")  # Make sure bdaysong.mp3 is in the same folder
+
+# Image Slideshow
 image_paths = [
     "IMG-20250308-WA0040.jpg",
     "IMG-20250313-WA0031.jpg",
@@ -44,12 +46,15 @@ image_paths = [
 ]
 
 for path in image_paths:
-    img = Image.open(path)
-    st.image(img, use_column_width=True)
-    time.sleep(1.5)
+    if os.path.exists(path):
+        img = Image.open(path)
+        st.image(img, use_column_width=True)
+        time.sleep(1.5)
+    else:
+        st.warning(f"⚠️ Image not found: {path}")
 
-# Final Message
+# Final Closing Message
 st.markdown(
-    "<h2 style='text-align: center;'>💖 Stay Happy Always Pavani 💖<br>Wishing You Love, Luck and Light ✨</h2>",
+    "<h2 style='text-align: center;'>💖 Stay Happy Always Pavani 💖<br>Wishing You Love, Luck, and Light ✨</h2>",
     unsafe_allow_html=True
 )
