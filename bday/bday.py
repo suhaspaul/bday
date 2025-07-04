@@ -45,6 +45,7 @@ image_paths = [
     "IMG-20250324-WA0088.jpg"
 ]
 
+
 for path in image_paths:
     if os.path.exists(path):
         img = Image.open(path)
