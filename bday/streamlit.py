@@ -29,7 +29,7 @@ def autoplay_audio(file_path: str):
     """
     st.markdown(md, unsafe_allow_html=True)
 
-autoplay_audio("bday.mp3")  # Change file name if needed
+autoplay_audio("bdaysong.mp3")  # Change file name if needed
 
 # Slideshow of Images
 image_paths = [
