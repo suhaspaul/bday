@@ -19,17 +19,19 @@ st.markdown(
 
 # Background Music
 def autoplay_audio(file_path: str):
-    with open(file_path, "rb") as f:
-        data = f.read()
-    b64 = base64.b64encode(data).decode()
-    md = f"""
-    <audio autoplay loop>
-    <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-    </audio>
-    """
-    st.markdown(md, unsafe_allow_html=True)
-
-autoplay_audio("bdaysong.mp3")  # Change file name if needed
+    try:
+        with open(file_path, "rb") as f:
+            data = f.read()
+        b64 = base64.b64encode(data).decode()
+        md = f"""
+        <audio autoplay loop>
+        <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+        </audio>
+        """
+        st.markdown(md, unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error(f"Could not find the music file: {file_path}")
+  # Change file name if needed
 
 # Slideshow of Images
 image_paths = [
